@@ -5,6 +5,7 @@ import Link from "next/link";
 import Form from "next/form";
 import { PackageIcon, TrolleyIcon } from "@sanity/icons";
 import useBasketStore from "@/store/store";
+import { MdSportsVolleyball } from "react-icons/md";
 
 function Header() {
   const { user } = useUser();
@@ -21,47 +22,38 @@ function Header() {
     }
   };
 
-
   return (
-    <header className="flex flex-wrap justify-between items-center px-4 py-2">
-      {/* Top row */}
-      <div className="flex w-full flex-wrap justify-between items-center">
+    <header className="fixed top-0 right-0 z-50 mx-auto mt-4 max-w-6xl 
+                      bg-white rounded-2xl 
+                      -translate-x-1/4 left-1/3
+                      border border-black/10 
+                      shadow-[0_2px_8px_-2px_rgba(0,0,0,0.08)]
+                      transition-all duration-300">
+      <div className="flex w-full flex-wrap justify-between items-center px-5 py-2">
+        {/* Logo section */}
         <Link
           href="/"
-          className="
-            text-2xl 
-            font-bold 
-            text-blue-500 
-            hover:opacity-50 
-            cursor-pointer 
-            mx-auto 
-            sm:mx-0"
+          className="flex items-center gap-2 text-lg font-extrabold tracking-tight 
+                    hover:opacity-80 transition-all duration-200"
         >
-          FitSport
+          <MdSportsVolleyball className="text-emerald-500 text-3xl" />
+          <span className="font-bold bg-gradient-to-r from-emerald-500 to-blue-500 bg-clip-text text-transparent text-2xl">
+            FitSport
+          </span>
         </Link>
 
+        {/* Search bar with adjusted width */}
         <Form
           action="/search"
-          className="w-full sm:w-auto sm:flex-1 sm:mx-4 mt-2 sm:mt-0"
+          className="w-full sm:w-56 md:w-72 sm:mx-4 mt-2 sm:mt-0"
         >
           <input
             type="text"
             name="query"
-            placeholder="Search for products"
-            className="
-              bg-gray-100
-              text-gray-800
-              px-4
-              py-2
-              rounded
-              focus:outline-none
-              focus:ring-2
-              focus:ring-blue-500
-              focus:ring-opacity-50
-              border
-              w-full
-              max-w-4xl
-              "
+            placeholder="Search for products..."
+            className="w-full px-3 py-1.5 text-sm rounded-lg border border-gray-200 
+                      focus:outline-none focus:ring-1 focus:ring-gray-200 
+                      focus:border-gray-200 transition-shadow duration-200"
           />
         </Form>
 
@@ -70,18 +62,19 @@ function Header() {
             href="/basket"
             className="
               flex-1 relative flex justify-center sm:justify-start
-              sm:flex-none items-center space-x-2
-              bg-blue-500 hover:bg-blue-700
-              text-white font-bold py-2 px-4 rounded
+              sm:flex-none items-center space-x-2 bg-emerald-500
+              text-white hover:bg-emerald-600
+              font-bold py-1.5 px-3 rounded-xl
+              text-sm
             "
           >
-            <TrolleyIcon className="w-6 h-6" />
+            <TrolleyIcon className="w-5 h-5" />
 
             <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
               {itemCount}
             </span>
 
-            <span>My Basket</span>
+            <span>Basket</span>
           </Link>
 
           {/* User area */}
@@ -90,14 +83,15 @@ function Header() {
               <Link
                 href="/orders"
                 className="
-                  flex justify-center sm:justify-start
-                  sm:flex-none items-center space-x-2
-                  bg-blue-500 hover:bg-blue-700
-                  text-white font-bold py-2 px-4 rounded
+                  flex-1 relative flex justify-center sm:justify-start
+              sm:flex-none items-center space-x-2 bg-emerald-500
+              text-white hover:bg-emerald-600
+              font-bold py-1.5 px-3 rounded-xl
+              text-sm
                 "
               >
-                <PackageIcon className="w-6 h-6" />
-                <span>My Orders</span>
+                <PackageIcon className="w-5 h-5" />
+                <span>Orders</span>
               </Link>
             </SignedIn>
 
@@ -111,19 +105,6 @@ function Header() {
               </div>
             ) : (
               <SignInButton mode="modal" />
-            )}
-
-            {user?.passkeys.length === 0 && (
-              <button
-                onClick={createClerkPasskey}
-                className="
-                  bg-white hover:bg-blue-700 hover:text-white 
-                  animate-pulse text-blue-500 font-bold py-2 px-4 rounded 
-                  border-blue-300 border
-                "
-              >
-                Create passkey
-              </button>
             )}
           </ClerkLoaded>
         </div>
