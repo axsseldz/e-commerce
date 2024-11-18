@@ -1,6 +1,8 @@
 import ProductsView from "@/components/ProductsView";
 import { getAllProducts } from "@/sanity/lib/products/getAllProducts";
 import { MdSportsVolleyball } from "react-icons/md";
+import { Suspense } from "react";
+import Chat from "@/components/Chat";
 
 export default async function Home() {
   const products = await getAllProducts();
@@ -99,6 +101,10 @@ export default async function Home() {
               </div>
             </div>
           </div>
+
+          <Suspense fallback={<div className="fixed bottom-4 right-4 w-72 h-12 bg-white rounded-lg shadow-lg animate-pulse z-[9999]" />}>
+            <Chat />
+          </Suspense>
         </div>
       </div>
     </div>
